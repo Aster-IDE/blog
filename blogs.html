@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AsterIDE Blog</title>
+    <title>All Posts - AsterIDE Blog</title>
   <script>
     (function () {
       const key = "aster_blog_theme";
@@ -27,7 +27,7 @@
 </head>
 <body>
   <div class="petals" id="petals"></div>
-  <div class="watermark" aria-hidden="true">blog</div>
+  <div class="watermark" aria-hidden="true">posts</div>
 
   <div class="page">
     <header class="top-bar">
@@ -36,38 +36,36 @@
         <a href="https://asteride.dev">asteride.dev</a>
         <span class="crumb-sep">/</span>
         <a href="index.html">blog</a>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-current">posts</span>
       </div>
       <div class="top-right">
         <button class="menu-toggle" id="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="header-nav">☰</button>
         <nav class="header-nav" id="header-nav" aria-label="Header navigation">
-          <a class="header-link active" href="index.html">home</a>
-          <a class="header-link" href="blogs.html">all posts</a>
+          <a class="header-link" href="index.html">home</a>
+          <a class="header-link active" href="blogs.html">all posts</a>
           <button class="theme-toggle" id="theme-btn" aria-label="Toggle theme">☀</button>
         </nav>
       </div>
     </header>
 
     <main class="main">
-      <!-- <p class="kicker">blog</p> -->
-      <h1 class="title">the <em>AsterIDE</em> blog</h1>
-      <p class="intro">
-        one post every 4 years
-      </p>
+      <p class="kicker">directory</p>
+      <h1 class="title">all blog posts</h1>
+      <p class="intro">Posts are sorted by date (newest first) using metadata from <code>posts/posts.json</code>.</p>
 
       <section>
         <div class="section-head">
           <h2>Pinned Posts</h2>
-          <a href="blogs.html">View all</a>
         </div>
-        <div id="pinned-posts-home" class="card-grid" aria-live="polite"></div>
+        <div id="pinned-posts" class="card-grid" aria-live="polite"></div>
       </section>
 
-      <section id="latest-posts-section">
+      <section id="all-posts-section">
         <div class="section-head">
-          <h2>Latest Posts</h2>
-          <a href="blogs.html">View all</a>
+          <h2>Post Archive</h2>
         </div>
-        <div id="latest-posts" class="card-grid" aria-live="polite"></div>
+        <div id="all-posts" class="card-grid" aria-live="polite"></div>
       </section>
     </main>
 
@@ -82,25 +80,24 @@
 
   <script src="js/blog.js"></script>
   <script>
-    (async function initHomePage() {
+    (async function initBlogsPage() {
       window.blogData.initChrome();
-      const latestMount = document.getElementById("latest-posts");
-      const pinnedMount = document.getElementById("pinned-posts-home");
+      const allPostsMount = document.getElementById("all-posts");
+      const pinnedPostsMount = document.getElementById("pinned-posts");
       try {
         const posts = await window.blogData.loadPosts();
         const pinnedPosts = window.blogData.sortPinnedPosts(posts.filter((post) => post.pinned));
+        window.blogData.renderPostList(posts, allPostsMount);
 
         if (pinnedPosts.length) {
-          window.blogData.renderPostList(pinnedPosts, pinnedMount);
+          window.blogData.renderPostList(pinnedPosts, pinnedPostsMount);
         } else {
-          pinnedMount.parentElement.style.display = "none";
+          pinnedPostsMount.parentElement.style.display = "none";
         }
-
-        window.blogData.renderPostList(posts, latestMount, 3);
       } catch (error) {
         console.error(error);
-        window.blogData.setErrorState(latestMount, "Unable to load latest posts right now.");
-        pinnedMount.parentElement.style.display = "none";
+        window.blogData.setErrorState(allPostsMount, "Unable to load the blog directory right now.");
+        pinnedPostsMount.parentElement.style.display = "none";
       }
     })();
   </script>

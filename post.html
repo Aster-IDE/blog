@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post - AsterIDE Blog</title>
+  <script>
+    (function () {
+      const key = "aster_blog_theme";
+      let theme = null;
+      try {
+        theme = localStorage.getItem(key);
+      } catch (error) {
+        theme = null;
+      }
+      if (theme !== "dark" && theme !== "light") {
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        theme = prefersDark ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+  <div class="watermark" aria-hidden="true">entry</div>
+
+  <div class="page">
+    <header class="top-bar">
+      <div class="site-id">
+        <span class="dot"></span>
+        <a href="https://asteride.dev">asteride.dev</a>
+        <span class="crumb-sep">/</span>
+        <a href="index.html">blog</a>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-current">post</span>
+      </div>
+      <div class="top-right">
+        <button class="menu-toggle" id="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="header-nav">☰</button>
+        <nav class="header-nav" id="header-nav" aria-label="Header navigation">
+          <a class="header-link" href="index.html">home</a>
+          <a class="header-link" href="blogs.html">all posts</a>
+          <button class="theme-toggle" id="theme-btn" aria-label="Toggle theme">☀</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="post-wrap">
+      <section id="post-meta" class="post-meta"></section>
+      <article id="post-body" class="post-body" aria-live="polite"></article>
+    </main>
+
+    <footer class="footer">
+      <span class="footer-copy">© asteride.dev 2026</span>
+      <nav class="footer-links">
+        <a href="https://asteride.dev">Main site</a>
+        <a href="https://github.com/Aster-IDE" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js"></script>
+  <script src="js/blog.js"></script>
+  <script>
+    (async function initPostPage() {
+      window.blogData.initChrome();
+      const metaMount = document.getElementById("post-meta");
+      const bodyMount = document.getElementById("post-body");
+      const params = new URLSearchParams(window.location.search);
+      let slug = "";
+
+      for (const [key, value] of params.entries()) {
+        if (value === "" && key) {
+          slug = key.trim();
+          break;
+        }
+      }
+
+      if (!slug) {
+        slug = (params.get("slug") || "").trim();
+      }
+
+      if (!slug) {
+        metaMount.innerHTML = "<h1>No post selected</h1>";
+        window.blogData.setErrorState(
+          bodyMount,
+          "No post was provided in the URL. <a href=\"blogs.html\">Browse all posts</a>."
+        );
+        return;
+      }
+
+      try {
+        const posts = await window.blogData.loadPosts();
+        const post = window.blogData.findPostBySlug(posts, slug);
+
+        if (!post) {
+          metaMount.innerHTML = "<h1>Post not found</h1>";
+          window.blogData.setErrorState(
+            bodyMount,
+            "The requested post does not exist in the manifest. <a href=\"blogs.html\">Browse all posts</a>."
+          );
+          return;
+        }
+
+        document.title = `${post.title} - AsterIDE Blog`;
+        const tagsHtml = post.tags
+          .map((tag) => `<span class=\"tag\">${window.blogData.escapeHtml(tag)}</span>`)
+          .join("");
+
+        metaMount.innerHTML = `
+          <p class="kicker">${window.blogData.formatDate(post.date)}</p>
+          <h1>${window.blogData.escapeHtml(post.title)}</h1>
+          <p>${window.blogData.escapeHtml(post.summary)}</p>
+          ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}
+        `;
+
+        const markdown = await window.blogData.loadMarkdownForPost(post.slug);
+
+        if (!window.marked || !window.DOMPurify) {
+          throw new Error("Markdown libraries failed to load.");
+        }
+
+        const rendered = window.marked.parse(markdown, {
+          headerIds: true,
+          mangle: false
+        });
+        const safeHtml = window.DOMPurify.sanitize(rendered);
+        bodyMount.innerHTML = safeHtml;
+      } catch (error) {
+        console.error(error);
+        if (!metaMount.innerHTML) {
+          metaMount.innerHTML = "<h1>Unable to load post</h1>";
+        }
+        window.blogData.setErrorState(
+          bodyMount,
+          "Unable to load post content right now. <a href=\"blogs.html\">Back to all posts</a>."
+        );
+      }
+    })();
+  </script>
+</body>
+</html>
+
