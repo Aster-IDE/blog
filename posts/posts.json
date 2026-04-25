@@ -6,20 +6,23 @@
       "summary": "About AsterIDE and how it came to be.",
       "pinned": true,
       "pinOrder": 1,
-      "tags:": ["about", "info"]
+      "tags": ["about", "info"],
+      "githubAuthor": "playfairs"
     },
     {
     "slug": "listening-to-wildside-and-i-have-work-tommorow",
     "title": "i'm listening to wildside and i have work tommorow FUCK",
     "date": "2026-04-25",
     "summary": "developer loses his shit",
-    "tags": ["help", "tag"]
+    "tags": ["help", "tag"],
+    "githubAuthor": "tazldied"
   },
   {
     "slug": "test-blog-post",
     "title": "test blog post",
     "date": "2026-04-24",
     "summary": "a test to make sure the markdown and stuff works",
-    "tags": ["intro", "markdown"]
+    "tags": ["intro", "markdown"],
+    "githubAuthor": "tazldied"
   }
 ]

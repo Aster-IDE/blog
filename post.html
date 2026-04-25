@@ -112,8 +112,17 @@
           .map((tag) => `<span class=\"tag\">${window.blogData.escapeHtml(tag)}</span>`)
           .join("");
 
+        const authorHtml = post.githubAuthor ? 
+          `<div class="post-author-bar">
+            <img src="https://github.com/${encodeURIComponent(post.githubAuthor)}.png?size=32" alt="${window.blogData.escapeHtml(post.githubAuthor)}'s avatar" class="post-author-avatar" loading="lazy">
+            <a href="https://github.com/${encodeURIComponent(post.githubAuthor)}" target="_blank" rel="noopener" class="post-author-name">@${window.blogData.escapeHtml(post.githubAuthor)}</a>
+          </div>` : "";
+
         metaMount.innerHTML = `
-          <p class="kicker">${window.blogData.formatDate(post.date)}</p>
+          <div class="post-header">
+            <p class="kicker">${window.blogData.formatDate(post.date)}</p>
+            ${authorHtml ? authorHtml : ""}
+          </div>
           <h1>${window.blogData.escapeHtml(post.title)}</h1>
           <p>${window.blogData.escapeHtml(post.summary)}</p>
           ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}

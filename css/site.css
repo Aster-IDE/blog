@@ -360,6 +360,35 @@ a {
   gap: 1rem;
 }
 
+.card-author {
+  margin-bottom: 0.6rem;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.author-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+
+.author-name {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.author-name:hover {
+  color: var(--accent);
+}
+
 .card h3 {
   margin: 0;
   font-family: "Instrument Serif", Georgia, serif;
@@ -429,6 +458,44 @@ a {
   color: var(--text-secondary);
   font-size: 0.84rem;
   line-height: 1.8;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post-header .kicker {
+  margin-bottom: 0;
+}
+
+.post-author-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.post-author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+
+.post-author-name {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.post-author-name:hover {
+  color: var(--accent);
 }
 
 .post-body {
@@ -705,5 +772,33 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.2rem;
+  }
+
+  .author-info {
+    font-size: 0.7rem;
+  }
+
+  .author-avatar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .post-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .post-header .kicker {
+    margin-bottom: 0.3rem;
+  }
+
+  .post-author-bar {
+    font-size: 0.65rem;
+  }
+
+  .post-author-avatar {
+    width: 28px;
+    height: 28px;
   }
 }

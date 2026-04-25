@@ -118,7 +118,8 @@ async function loadPosts() {
       pinned: Boolean(entry.pinned),
       pinOrder: Number.isFinite(parsedPinOrder) ? parsedPinOrder : Number.MAX_SAFE_INTEGER,
       tags: Array.isArray(entry.tags) ? entry.tags.filter((tag) => typeof tag === "string") : [],
-      coverImage: typeof entry.coverImage === "string" ? entry.coverImage : ""
+      coverImage: typeof entry.coverImage === "string" ? entry.coverImage : "",
+      githubAuthor: typeof entry.githubAuthor === "string" ? entry.githubAuthor : ""
     });
   }
 
@@ -135,11 +136,18 @@ function createPostCard(post, index = 0) {
     .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
     .join("");
 
+  const avatarHtml = post.githubAuthor ? 
+    `<div class="author-info">
+      <img src="${getGitHubAvatarUrl(post.githubAuthor)}" alt="${escapeHtml(post.githubAuthor)}'s avatar" class="author-avatar" loading="lazy">
+      <a href="https://github.com/${encodeURIComponent(post.githubAuthor)}" target="_blank" rel="noopener" class="author-name">@${escapeHtml(post.githubAuthor)}</a>
+    </div>` : "";
+
   card.innerHTML = `
     <div class="card-top">
       <h3><a href="post.html?${encodeURIComponent(post.slug)}">${escapeHtml(post.title)}</a></h3>
       <time datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
     </div>
+    ${avatarHtml ? `<div class="card-author">${avatarHtml}</div>` : ""}
     <p>${escapeHtml(post.summary)}</p>
     ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}
   `;
@@ -196,6 +204,13 @@ function escapeHtml(input) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function getGitHubAvatarUrl(username) {
+  if (!username || typeof username !== "string") {
+    return "";
+  }
+  return `https://github.com/${encodeURIComponent(username)}.png?size=40`;
 }
 
 function setErrorState(container, message) {
