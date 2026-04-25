@@ -1,0 +1,3 @@
+# About AsterIDE and how I came up with the idea.
+
+I originally wanted to make an IDE because of an inside joke with one of my friends with a GIF, and I started to do it as a joke at first, but I started to like how it was going, and so that ended up turning into me actually locking in and working on it for real, for the actual intent of having a proper text editor / IDE, I don't know where this will lead me, but I plan on adding a LOT of stuff to this and I really think this is an amazing project.

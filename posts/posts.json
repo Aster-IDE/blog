@@ -1,12 +1,18 @@
 ﻿[
-  
+    {
+      "slug": "about-asteride",
+      "title": "About AsterIDE.",
+      "date": "2026-04-25",
+      "summary": "About AsterIDE and how it came to be.",
+      "pinned": true,
+      "pinOrder": 1,
+      "tags:": ["about"]
+    },
     {
     "slug": "listening-to-wildside-and-i-have-work-tommorow",
     "title": "i'm listening to wildside and i have work tommorow FUCK",
     "date": "2026-04-25",
     "summary": "developer loses his shit",
-    "pinned": true,
-    "pinOrder": 1,
     "tags": ["help", "tag"]
   },
   {
