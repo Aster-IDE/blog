@@ -86,11 +86,16 @@
       }
 
       if (!slug) {
-        metaMount.innerHTML = "<h1>No post selected</h1>";
-        window.blogData.setErrorState(
-          bodyMount,
-          "No post was provided in the URL. <a href=\"blogs.html\">Browse all posts</a>."
-        );
+        const errorTitle = document.createElement('h1');
+        errorTitle.textContent = 'No post selected';
+        metaMount.innerHTML = '';
+        metaMount.appendChild(errorTitle);
+        
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'empty-state';
+        errorMsg.innerHTML = 'No post was provided in the URL. <a href="blogs.html">Browse all posts</a>.';
+        bodyMount.innerHTML = '';
+        bodyMount.appendChild(errorMsg);
         return;
       }
 
@@ -99,11 +104,16 @@
         const post = window.blogData.findPostBySlug(posts, slug);
 
         if (!post) {
-          metaMount.innerHTML = "<h1>Post not found</h1>";
-          window.blogData.setErrorState(
-            bodyMount,
-            "The requested post does not exist in the manifest. <a href=\"blogs.html\">Browse all posts</a>."
-          );
+          const errorTitle = document.createElement('h1');
+          errorTitle.textContent = 'Post not found';
+          metaMount.innerHTML = '';
+          metaMount.appendChild(errorTitle);
+          
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'empty-state';
+          errorMsg.innerHTML = 'The requested post does not exist in the manifest. <a href="blogs.html">Browse all posts</a>.';
+          bodyMount.innerHTML = '';
+          bodyMount.appendChild(errorMsg);
           return;
         }
 
@@ -143,12 +153,15 @@
       } catch (error) {
         console.error(error);
         if (!metaMount.innerHTML) {
-          metaMount.innerHTML = "<h1>Unable to load post</h1>";
+          const errorTitle = document.createElement('h1');
+          errorTitle.textContent = 'Unable to load post';
+          metaMount.appendChild(errorTitle);
         }
-        window.blogData.setErrorState(
-          bodyMount,
-          "Unable to load post content right now. <a href=\"blogs.html\">Back to all posts</a>."
-        );
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'empty-state';
+        errorMsg.innerHTML = 'Unable to load post content right now. <a href="blogs.html">Back to all posts</a>.';
+        bodyMount.innerHTML = '';
+        bodyMount.appendChild(errorMsg);
       }
     })();
   </script>

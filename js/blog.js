@@ -164,11 +164,11 @@ function renderPostList(posts, container, limit = null) {
   const list = limit ? posts.slice(0, limit) : posts;
 
   if (!list.length) {
-    container.innerHTML = `
-      <div class="empty-state">
-        No posts yet. Add markdown files in <code>posts/post/</code> and update <code>posts/posts.json</code>.
-      </div>
-    `;
+    const emptyState = document.createElement('div');
+    emptyState.className = 'empty-state';
+    emptyState.innerHTML = 'No posts yet. Add markdown files in <code>posts/post/</code> and update <code>posts/posts.json</code>.';
+    container.innerHTML = '';
+    container.appendChild(emptyState);
     return;
   }
 
@@ -217,7 +217,7 @@ function setErrorState(container, message) {
   if (!container) {
     return;
   }
-  container.innerHTML = `<div class="empty-state">${message}</div>`;
+  container.innerHTML = `<div class="empty-state">${escapeHtml(message)}</div>`;
 }
 
 function initPetals() {
