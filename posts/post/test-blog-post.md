@@ -28,7 +28,7 @@
 
 ## Links
 
-[Normal Link](https://youtu.be/dQw4w9WgXcQ?si=c54nk0XPCFhnngZC)
+[Normal Link](https://youtu.be/dQw4w9WgXcQ?si=c54nk0XPCFhnngZC)  
 <https://example.com>  
 
 ---
