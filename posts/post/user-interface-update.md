@@ -1,0 +1,3 @@
+# Update on the User Interface
+
+I am currently trying to work on the UI to make it more appealing to the eyes, and as well as trying to get the search and jump to function working, the searching works fine, and jumping to a file works, but jumping to the line is a pain, and I am trying to set it up, I'm sure I'm just doing it wrong but either way yeah, I need to figure that out, no other updates other than this.
