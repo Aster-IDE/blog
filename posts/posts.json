@@ -1,5 +1,13 @@
 ﻿[
   {
+    "slug": "versioning",
+    "title": "Plans for Linux and Versioning.",
+    "date": "2026-05-26",
+    "summary": "Update and Plans for Versioning and Linux Support",
+    "tags": ["update", "plans", "linux", "versioning"],
+    "githubAuthor": "playfairs"
+  },
+  {
     "slug": "user-interface-update",
     "title": "User Interface update and Search Functionality",
     "date": "2026-04-26",
