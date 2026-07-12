@@ -151,12 +151,11 @@ a {
 }
 
 .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-hot);
-  box-shadow: 0 0 8px var(--accent-hot);
-  animation: pulse 2.5s ease-in-out infinite;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--accent-hot);
+  filter: drop-shadow(0 0 3px var(--accent-hot));
 }
 
 @keyframes pulse {
