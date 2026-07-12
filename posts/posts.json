@@ -1,5 +1,15 @@
 ﻿[
   {
+    "slug": "v2",
+    "title": "AsterIDE V2.",
+    "date": "2026-07-11",
+    "summary": "Update on AsterIDE V2 and the changes to the structure.",
+    "tags": ["update", "v2", "codebase", "structure"],
+    "githubAuthor": "playfairs"
+    "pinned": true,
+    "pinOrder": 1,
+  },
+  {
     "slug": "versioning",
     "title": "Plans for Linux and Versioning.",
     "date": "2026-05-26",
@@ -21,7 +31,7 @@
     "date": "2026-04-25",
     "summary": "About AsterIDE and how it came to be.",
     "pinned": true,
-    "pinOrder": 1,
+    "pinOrder": 2,
     "tags": ["about", "info"],
     "githubAuthor": "playfairs"
   },
