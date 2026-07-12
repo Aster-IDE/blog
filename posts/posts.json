@@ -5,9 +5,9 @@
     "date": "2026-07-11",
     "summary": "Update on AsterIDE V2 and the changes to the structure.",
     "tags": ["update", "v2", "codebase", "structure"],
-    "githubAuthor": "playfairs"
+    "githubAuthor": "playfairs",
     "pinned": true,
-    "pinOrder": 1,
+    "pinOrder": 1
   },
   {
     "slug": "versioning",
